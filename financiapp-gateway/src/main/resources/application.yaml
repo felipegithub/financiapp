@@ -1,0 +1,37 @@
+server:
+  port: 4000
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+spring:
+  application:
+    name: financiapp-gateway
+  security:
+    oauth2:
+      resourceserver:
+        opaquetoken:
+          introspection-uri: http://localhost:8080/realms/financiapp/protocol/openid-connect/token/introspect
+          client-id: financiapp-backend
+          client-secret: ycWkyXZE47yObbseTJz6rZg351g8YKx1
+  cloud:
+    gateway:
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods: "*"
+            allowedHeaders: "*"
+      routes:
+        - id: financial-plan-cmd
+          uri: lb://financial-plan-cmd #http://financiapp-cmd:9090/
+          predicates:
+            - Path=/api/v1/**
+        - id: financial-plan-qry
+          uri: lb://financial-plan-qry #http://financiapp-qry:9091/
+          predicates:
+            - Path=/api/v1/**

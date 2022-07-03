@@ -1,0 +1,33 @@
+micronaut:
+  application:
+    name: financial-plan-cmd
+  server:
+    port: 7777
+  security:
+    authentication: bearer
+    oauth2.clients.keycloak:
+      grant-type: password
+      client-id: financiapp-backend
+      client-secret: ycWkyXZE47yObbseTJz6rZg351g8YKx1
+    token:
+      jwt:
+        enabled: true
+        signatures:
+          jwks:
+            keycloak:
+              url: http://localhost:8080/realms/financiapp/protocol/openid-connect/certs
+
+mongodb:
+  host: localhost
+  port: 27017
+  database: financial-plan-events
+
+netty:
+  default:
+    allocator:
+      max-order: 3
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/

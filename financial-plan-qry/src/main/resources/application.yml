@@ -1,0 +1,20 @@
+micronaut:
+  application:
+    name: financial-plan-qry
+  server:
+    port: -1
+
+mongodb:
+  host: localhost
+  port: 27017
+  database: financiapp
+
+netty:
+  default:
+    allocator:
+      max-order: 3
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
